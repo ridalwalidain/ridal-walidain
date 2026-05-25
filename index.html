@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine? ✌🏻</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: linear-gradient(to bottom, #ffe4e6, #fbcfe8); }
+        #noBtn { transition: all 0.2s ease; }
+        #yesBtn { transition: all 0.2s ease; }
+    </style>
+</head>
+<body class="h-screen flex flex-col items-center justify-center overflow-hidden font-sans text-pink-600">
+
+    <h1 id="question" class="text-4xl font-bold mb-8 text-center px-4">Will you be my Valentine? 💕</h1>
+    
+    <div class="mb-10">
+        <img id="image" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueW9ueW55bnlueW55bnlueW55bnlueW55bnlueW55bnlueW55JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/3o7TKVUn7iM8FMEU24/giphy.gif" 
+             alt="cat" class="w-48 h-48">
+    </div>
+
+    <div class="flex gap-4 items-center">
+        <button id="yesBtn" class="bg-green-500 text-white px-8 py-3 rounded-xl font-bold text-xl shadow-lg">
+            Yes
+        </button>
+        <button id="noBtn" class="bg-red-500 text-white px-8 py-3 rounded-xl font-bold text-xl shadow-lg">
+            No
+        </button>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const question = document.getElementById('question');
+        const image = document.getElementById('image');
+
+        let yesSize = 20; // Ukuran awal font Yes
+        let clickCount = 0;
+
+        const messages = [
+            "Yakin?", "Beneran nih?", "Plis dong...", "Jahat banget sih!", 
+            "Gue nangis nih!", "Gak ada pilihan lain!", "Pencet YES sekarang!"
+        ];
+
+        noBtn.addEventListener('click', () => {
+            clickCount++;
+            
+            // 1. Tombol YES makin gede (gak ngotak gedenya)
+            yesSize += 40;
+            yesBtn.style.fontSize = `${yesSize}px`;
+            yesBtn.style.padding = `${yesSize/2}px ${yesSize}px`;
+
+            // 2. Tombol NO ngehindar (pindah posisi random)
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+
+            // 3. Ganti teks biar makin dramatis
+            if (clickCount < messages.length) {
+                noBtn.innerText = messages[clickCount];
+            } else {
+                noBtn.style.display = 'none'; // Ilang aja sekalian biar makin maksa
+            }
+        });
+
+        yesBtn.addEventListener('click', () => {
+            question.innerText = "Hehe, tau kok lu pasti mau! 😹✌🏻";
+            image.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueW9ueW55bnlueW55bnlueW55bnlueW55bnlueW55bnlueW55JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/26FLdmIp6wJr91JAI/giphy.gif";
+            noBtn.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
